@@ -17,6 +17,7 @@
   --shadow-color-blue: #6784bb;
   --grey-text-color: #c9d7e3;
   --grey-text-color-2: #748899;
+  --grey-text-color-3: #647380;
   --simple-short-transition: all 0.3s ease-in-out;
 }
 
@@ -102,21 +103,21 @@ body {
 .links a,
 .fa-magnifying-glass,
 #pfp,
-.fa-xmark {
+.fa-xmark,
+.landing-section h3,
+.anime-card {
   cursor: pointer;
 }
 /* end of nav section */
 
 /* main container */
 .container {
-  width: 100%;
-  height: 1000px;
-  border: 1px solid firebrick;
   margin: 0 auto;
   padding: 0 30px;
-  max-width: 75%;
+  max-width: 80%;
   position: relative;
   top: 75px;
+  padding-bottom: 30px;
 }
 /* end of main container */
 
@@ -174,3 +175,59 @@ body {
   color: var(--grey-text-color-2);
 }
 /* end of search section */
+
+/* landing section content  */
+.landing-section {
+  width: 100%;
+  min-width: 300px;
+  margin: 40px 0;
+}
+
+.landing-section h3 {
+  width: fit-content;
+  margin: 0 auto;
+  margin-bottom: 20px;
+  font-size: 1.05rem;
+  color: var(--grey-text-color-3);
+  transition: var(--simple-short-transition);
+}
+
+.landing-section-media {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 30px;
+}
+
+.landing-section h3:hover,
+.title:hover {
+  color: var(--brand-blue-color);
+}
+/* end of landing section content */
+
+/* Anime card styles */
+.anime-card {
+  display: flex;
+  flex-direction: column;
+}
+
+.poster {
+  height: 265px;
+  width: 185px;
+  border-radius: 5px;
+  transition: var(--simple-short-transition);
+}
+
+.poster:hover {
+  transform: scale(1.02);
+}
+
+.title {
+  color: var(--grey-text-color-2);
+  font-size: 0.875rem;
+  font-weight: 700;
+  margin-top: 10px;
+  max-width: 185px;
+  transition: var(--simple-short-transition);
+}
+/* End of anime card styles */

@@ -1,3 +1,5 @@
+import { createFavoriteSection, createPopular_seasonal, createPopularUpcoming, createAllTimePopular } from "./dom.js";
+
 // hide navbar on scroll
 let prevScrollPos = window.scrollY;
 window.onscroll = () => {
@@ -10,3 +12,11 @@ window.onscroll = () => {
   }
   prevScrollPos = currentScrollPos;
 };
+
+// functions invoked when page loads
+window.addEventListener("DOMContentLoaded", () => {
+  createFavoriteSection();
+  createPopular_seasonal();
+  createPopularUpcoming();
+  createAllTimePopular();
+});
