@@ -1,31 +1,25 @@
-import { renderMedia, renderQueriedAnime } from "./dom.js";
+import { renderLpAnime, renderQueriedAnime } from "./dom.js";
 import { mainSearchBar } from "./app.js";
 
-export async function getPopularAiring() {
-  const url = "https://api.jikan.moe/v4/top/anime?filter=airing&limit=6";
+async function getLpAnime(endpoint, lp_section) {
+  const url = endpoint;
   let response = await fetch(url, { mode: "cors" });
   let results = await response.json();
 
-  let popularAiring = results.data;
-  renderMedia(popularAiring, "popular-airing");
+  let data = results.data;
+  renderLpAnime(data, `${lp_section}`);
+}
+
+export async function getPopularAiring() {
+  getLpAnime("https://api.jikan.moe/v4/top/anime?filter=airing&limit=6", "popular-airing");
 }
 
 export async function getPopularUpcoming() {
-  const url = "https://api.jikan.moe/v4/top/anime?filter=upcoming&limit=6";
-  let response = await fetch(url, { mode: "cors" });
-  let results = await response.json();
-
-  let popularUpcoming = results.data;
-  renderMedia(popularUpcoming, "popular-upcoming");
+  getLpAnime("https://api.jikan.moe/v4/top/anime?filter=upcoming&limit=6", "popular-upcoming");
 }
 
 export async function getAllTimePopular() {
-  const url = "https://api.jikan.moe/v4/top/anime?filter=bypopularity&limit=6";
-  let response = await fetch(url, { mode: "cors" });
-  let results = await response.json();
-
-  let popularAllTime = results.data;
-  renderMedia(popularAllTime, "all-time-popular");
+  getLpAnime("https://api.jikan.moe/v4/top/anime?filter=bypopularity&limit=6", "all-time-popular");
 }
 
 export async function showQueryResults() {

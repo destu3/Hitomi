@@ -1,52 +1,35 @@
 import { getPopularAiring, getPopularUpcoming, getAllTimePopular } from "./anime.js";
 
 // creating landing page sections
-export function createPopular_seasonal() {
+function createLpSection(sectionName, sectionClassName, sectionFunction) {
   const mainContainer = document.querySelector(".container");
 
   const landingSect = document.createElement("section");
   landingSect.classList.add("landing-section");
   const trendingHeading = document.createElement("h3");
-  trendingHeading.textContent = "POPULAR: CURRENTLY AIRING";
+  trendingHeading.textContent = `${sectionName}`;
   const landingSectMedia = document.createElement("div");
-  landingSectMedia.classList.add("landing-section-media", "popular-airing");
+  landingSectMedia.classList.add("landing-section-media", `${sectionClassName}`);
   landingSect.append(trendingHeading, landingSectMedia);
-  getPopularAiring();
+  sectionFunction();
 
   mainContainer.appendChild(landingSect);
+}
+
+export function createPopular_seasonal() {
+  createLpSection("POPULAR: CURRENTLY AIRING", "popular-airing", getPopularAiring);
 }
 
 export function createPopularUpcoming() {
-  const mainContainer = document.querySelector(".container");
-
-  const landingSect = document.createElement("section");
-  landingSect.classList.add("landing-section");
-  const trendingHeading = document.createElement("h3");
-  trendingHeading.textContent = "POPULAR: UPCOMING";
-  const landingSectMedia = document.createElement("div");
-  landingSectMedia.classList.add("landing-section-media", "popular-upcoming");
-  landingSect.append(trendingHeading, landingSectMedia);
-  getPopularUpcoming();
-
-  mainContainer.appendChild(landingSect);
+  createLpSection("POPULAR: UPCOMING", "popular-upcoming", getPopularUpcoming);
 }
 
 export function createAllTimePopular() {
-  const mainContainer = document.querySelector(".container");
-
-  const landingSect = document.createElement("section");
-  landingSect.classList.add("landing-section");
-  const trendingHeading = document.createElement("h3");
-  trendingHeading.textContent = "ALL TIME POPULAR";
-  const landingSectMedia = document.createElement("div");
-  landingSectMedia.classList.add("landing-section-media", "all-time-popular");
-  landingSect.append(trendingHeading, landingSectMedia);
-  getAllTimePopular();
-
-  mainContainer.appendChild(landingSect);
+  createLpSection("ALL TIME POPULAR", "all-time-popular", getAllTimePopular);
 }
 
-export function renderMedia(array, lp_section) {
+// anime rendering
+export function renderLpAnime(array, lp_section) {
   array.forEach(anime => {
     const animeCard = document.createElement("div");
     animeCard.classList.add("anime-card");
