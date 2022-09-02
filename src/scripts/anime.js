@@ -1,21 +1,13 @@
-import { renderMedia } from "./dom.js";
-
-export async function getFavorite() {
-  const url = "https://api.jikan.moe/v4/top/anime?filter=favorite&limit=6";
-  let response = await fetch(url, { mode: "cors" });
-  let results = await response.json();
-
-  let popularAnime = results.data;
-  renderMedia(popularAnime, "favorite");
-}
+import { renderMedia, renderQueriedAnime } from "./dom.js";
+import { mainSearchBar } from "./app.js";
 
 export async function getPopularAiring() {
   const url = "https://api.jikan.moe/v4/top/anime?filter=airing&limit=6";
   let response = await fetch(url, { mode: "cors" });
   let results = await response.json();
 
-  let popularSeasonal = results.data;
-  renderMedia(popularSeasonal, "popular-airing");
+  let popularAiring = results.data;
+  renderMedia(popularAiring, "popular-airing");
 }
 
 export async function getPopularUpcoming() {
@@ -23,8 +15,8 @@ export async function getPopularUpcoming() {
   let response = await fetch(url, { mode: "cors" });
   let results = await response.json();
 
-  let popularSeasonal = results.data;
-  renderMedia(popularSeasonal, "popular-upcoming");
+  let popularUpcoming = results.data;
+  renderMedia(popularUpcoming, "popular-upcoming");
 }
 
 export async function getAllTimePopular() {
@@ -32,6 +24,15 @@ export async function getAllTimePopular() {
   let response = await fetch(url, { mode: "cors" });
   let results = await response.json();
 
-  let popularSeasonal = results.data;
-  renderMedia(popularSeasonal, "all-time-popular");
+  let popularAllTime = results.data;
+  renderMedia(popularAllTime, "all-time-popular");
+}
+
+export async function showQueryResults() {
+  const url = `https://api.jikan.moe/v4/anime?q=${mainSearchBar.value}`;
+  let response = await fetch(url, { mode: "cors" });
+  let results = await response.json();
+
+  let animeResults = results.data;
+  renderQueriedAnime(animeResults);
 }

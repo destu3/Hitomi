@@ -1,21 +1,6 @@
-import { getFavorite, getPopularAiring, getPopularUpcoming, getAllTimePopular } from "./anime.js";
+import { getPopularAiring, getPopularUpcoming, getAllTimePopular } from "./anime.js";
 
 // creating landing page sections
-export function createFavoriteSection() {
-  const mainContainer = document.querySelector(".container");
-
-  const landingSect = document.createElement("section");
-  landingSect.classList.add("landing-section");
-  const trendingHeading = document.createElement("h3");
-  trendingHeading.textContent = "MOST BELOVED";
-  const landingSectMedia = document.createElement("div");
-  landingSectMedia.classList.add("landing-section-media", "favorite");
-  landingSect.append(trendingHeading, landingSectMedia);
-  getFavorite();
-
-  mainContainer.appendChild(landingSect);
-}
-
 export function createPopular_seasonal() {
   const mainContainer = document.querySelector(".container");
 
@@ -70,10 +55,44 @@ export function renderMedia(array, lp_section) {
     const title = document.createElement("p");
     title.classList.add("title");
     poster.src = anime.images.jpg.image_url;
-    title.textContent = anime.title_english;
-    animeCard.append(poster, title);
+    if (anime.title_english == null) {
+      title.textContent = anime.title;
+    } else {
+      title.textContent = anime.title_english;
+    }
 
+    animeCard.append(poster, title);
     const landingSectMedia = document.querySelector(`.${lp_section}`);
     landingSectMedia.appendChild(animeCard);
   });
+}
+
+export function renderQueriedAnime(array) {
+  const queryResultsContainer = document.querySelector(".query-results");
+  queryResultsContainer.classList.add("visible");
+  clearAnime(queryResultsContainer);
+
+  array.forEach(anime => {
+    const animeCard = document.createElement("div");
+    animeCard.classList.add("anime-card");
+    const poster = document.createElement("img");
+    poster.classList.add("poster");
+    const title = document.createElement("p");
+    title.classList.add("title");
+    poster.src = anime.images.jpg.image_url;
+    if (anime.title_english == null) {
+      title.textContent = anime.title;
+    } else {
+      title.textContent = anime.title_english;
+    }
+
+    animeCard.append(poster, title);
+    queryResultsContainer.appendChild(animeCard);
+  });
+}
+
+export function clearAnime(parentElement) {
+  while (parentElement.firstChild) {
+    parentElement.removeChild(parentElement.firstChild);
+  }
 }

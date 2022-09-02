@@ -177,7 +177,8 @@ body {
 /* end of search section */
 
 /* landing section content  */
-.landing-section {
+.landing-section,
+.query-results {
   width: 100%;
   min-width: 300px;
   margin: 40px 0;
@@ -231,3 +232,18 @@ body {
   transition: var(--simple-short-transition);
 }
 /* End of anime card styles */
+
+/* anime query results */
+.query-results {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 30px;
+  visibility: hidden;
+}
+
+.visible {
+  visibility: visible;
+}
+
+/* end of anime query results */
