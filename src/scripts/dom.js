@@ -1,4 +1,4 @@
-import { getPopularAiring, getPopularUpcoming, getAllTimePopular } from "./anime.js";
+import { getPopularAiring, getPopularUpcoming, getAllTimePopular, getTrending } from "./anime.js";
 
 // creating landing page sections
 function createLpSection(sectionName, sectionClassName, sectionFunction) {
@@ -16,7 +16,7 @@ function createLpSection(sectionName, sectionClassName, sectionFunction) {
   mainContainer.appendChild(landingSect);
 }
 
-export function createPopular_seasonal() {
+export function createPopular_airing() {
   createLpSection("POPULAR: CURRENTLY AIRING", "popular-airing", getPopularAiring);
 }
 
@@ -28,6 +28,10 @@ export function createAllTimePopular() {
   createLpSection("ALL TIME POPULAR", "all-time-popular", getAllTimePopular);
 }
 
+export function createTrending() {
+  createLpSection("TRENDING NOW", "trending", getTrending);
+}
+
 // anime rendering
 export function renderLpAnime(array, lp_section) {
   array.forEach(anime => {
@@ -37,14 +41,25 @@ export function renderLpAnime(array, lp_section) {
     poster.classList.add("poster");
     const title = document.createElement("p");
     title.classList.add("title");
-    poster.src = anime.images.jpg.image_url;
-    if (anime.title_english == null) {
-      title.textContent = anime.title;
+    poster.src = anime.attributes.posterImage.original;
+    const animeDetails = document.createElement("div");
+    animeDetails.classList.add("speech-bubble", "anime-details");
+
+    const titlesObject = anime.attributes.titles;
+    if (titlesObject.hasOwnProperty("en")) {
+      title.textContent = titlesObject.en;
+    } else if (titlesObject.hasOwnProperty("en_us")) {
+      title.textContent = titlesObject.en_us;
     } else {
-      title.textContent = anime.title_english;
+      title.textContent = anime.attributes.canonicalTitle;
     }
 
-    animeCard.append(poster, title);
+    // event listeners for anime cards
+    animeCard.addEventListener("click", () => {
+      console.log(anime);
+    });
+
+    animeCard.append(poster, title, animeDetails);
     const landingSectMedia = document.querySelector(`.${lp_section}`);
     landingSectMedia.appendChild(animeCard);
   });
@@ -62,14 +77,20 @@ export function renderQueriedAnime(array) {
     poster.classList.add("poster");
     const title = document.createElement("p");
     title.classList.add("title");
-    poster.src = anime.images.jpg.image_url;
-    if (anime.title_english == null) {
-      title.textContent = anime.title;
+    poster.src = anime.attributes.posterImage.original;
+    const animeDetails = document.createElement("div");
+    animeDetails.classList.add("speech-bubble", "anime-details");
+
+    const titlesObject = anime.attributes.titles;
+    if (titlesObject.hasOwnProperty("en")) {
+      title.textContent = titlesObject.en;
+    } else if (titlesObject.hasOwnProperty("en_us")) {
+      title.textContent = titlesObject.en_us;
     } else {
-      title.textContent = anime.title_english;
+      title.textContent = anime.attributes.canonicalTitle;
     }
 
-    animeCard.append(poster, title);
+    animeCard.append(poster, title, animeDetails);
     queryResultsContainer.appendChild(animeCard);
   });
 }

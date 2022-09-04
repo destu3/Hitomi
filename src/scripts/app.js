@@ -1,4 +1,4 @@
-import { createPopular_seasonal, createPopularUpcoming, createAllTimePopular } from "./dom.js";
+import { createPopular_airing, createPopularUpcoming, createAllTimePopular, createTrending } from "./dom.js";
 import { showQueryResults } from "./anime.js";
 
 // dom selection
@@ -7,8 +7,9 @@ const mainContainer = document.querySelector(".container");
 
 // functions invoked when page loads
 window.addEventListener("DOMContentLoaded", () => {
-  createPopular_seasonal();
+  createPopular_airing();
   createPopularUpcoming();
+  createTrending();
   createAllTimePopular();
 });
 
@@ -26,12 +27,10 @@ window.onscroll = () => {
 };
 
 // event listeners
-mainSearchBar.addEventListener("keydown", e => {
-  if (e.code === "Enter") {
-    const landingPageSection = document.querySelectorAll(".landing-section");
-    landingPageSection.forEach(section => {
-      mainContainer.removeChild(section);
-    });
-    showQueryResults();
-  }
+mainSearchBar.addEventListener("input", e => {
+  const landingPageSection = document.querySelectorAll(".landing-section");
+  landingPageSection.forEach(section => {
+    mainContainer.removeChild(section);
+  });
+  showQueryResults();
 });
