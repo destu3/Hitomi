@@ -268,10 +268,74 @@ body {
 /* anime query results */
 .query-results {
   visibility: hidden;
+  margin: 0;
 }
 
 .visible {
   visibility: visible;
+  margin: 40px 0;
 }
 
 /* end of anime query results */
+
+/* load more button */
+/* span #load-more {
+  
+
+  transition: all 0.2s;
+} */
+
+span {
+  display: inline-flex;
+  width: 180px;
+  height: 55px;
+  margin: 0 15px;
+  perspective: 1000px;
+  position: fixed;
+  left: 50%;
+  bottom: 7%;
+  transform: translate(-50%, -50%);
+  cursor: pointer;
+  transition: all 0.1s ease-in-out;
+  opacity: 0.9;
+}
+
+span:hover {
+  opacity: 1;
+}
+span a {
+  font-size: 19px;
+  font-weight: bold;
+  transform-style: preserve-3d;
+  transform: translateZ(-25px);
+  transition: transform 0.25s;
+  font-family: Overpass, -apple-system, BlinkMacSystemFont, Segoe UI, Oxygen, Ubuntu, Cantarell, Fira Sans, Droid Sans,
+    Helvetica Neue, sans-serif;
+}
+span a:before,
+span a:after {
+  position: absolute;
+  content: "Load More";
+  height: 55px;
+  width: 180px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  box-sizing: border-box;
+  border-radius: 5px;
+}
+span a:before {
+  color: var(--purple-text-color);
+  background: var(--brand-blue-color);
+  transform: rotateY(0deg) translateZ(25px);
+}
+span a:after {
+  color: var(--brand-blue-color);
+  background: var(--purple-text-color);
+  transform: rotateX(90deg) translateZ(25px);
+}
+span a:hover {
+  transform: translateZ(-25px) rotateX(-90deg);
+}
+
+/* end of load more */

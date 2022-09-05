@@ -1,9 +1,10 @@
 import { createPopular_airing, createPopularUpcoming, createAllTimePopular, createTrending } from "./dom.js";
-import { showQueryResults } from "./anime.js";
+import { showQueryResults, loadMoreQueryResults } from "./anime.js";
 
 // dom selection
 export const mainSearchBar = document.getElementById("query");
 const mainContainer = document.querySelector(".container");
+const loadMoreBtn = document.getElementById("load-more");
 
 // functions invoked when page loads
 window.addEventListener("DOMContentLoaded", () => {
@@ -15,7 +16,7 @@ window.addEventListener("DOMContentLoaded", () => {
 
 // hide navbar on scroll
 let prevScrollPos = window.scrollY;
-window.onscroll = () => {
+window.addEventListener("scroll", () => {
   const nav = document.getElementById("nav");
   let currentScrollPos = window.scrollY;
   if (prevScrollPos > currentScrollPos) {
@@ -24,7 +25,7 @@ window.onscroll = () => {
     nav.style.top = "-75px";
   }
   prevScrollPos = currentScrollPos;
-};
+});
 
 // event listeners
 mainSearchBar.addEventListener("input", e => {
@@ -34,3 +35,5 @@ mainSearchBar.addEventListener("input", e => {
   });
   showQueryResults();
 });
+
+loadMoreBtn.addEventListener("click", loadMoreQueryResults);

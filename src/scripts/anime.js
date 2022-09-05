@@ -1,5 +1,12 @@
-import { renderLpAnime, renderQueriedAnime } from "./dom.js";
-import { mainSearchBar } from "./app.js";
+import { renderLpAnime, renderQueriedAnime, loadMoreAnime } from "./dom.js";
+
+const mainSearchBar = document.getElementById("query");
+
+let offSetValue = 0;
+
+mainSearchBar.addEventListener("input", () => {
+  offSetValue = 0;
+});
 
 async function getLpAnime(endpoint, lp_section) {
   const url = endpoint;
@@ -7,6 +14,7 @@ async function getLpAnime(endpoint, lp_section) {
   let results = await response.json();
 
   let data = results.data;
+
   renderLpAnime(data, `${lp_section}`);
 }
 
@@ -29,7 +37,7 @@ export async function getAllTimePopular() {
 }
 
 export async function getTrending() {
-  getLpAnime("https://kitsu.io/api/edge/trending/anime?page[limit]=5&page[offset]=0", "trending");
+  getLpAnime("https://kitsu.io/api/edge/trending/anime", "trending");
 }
 
 export async function showQueryResults() {
@@ -38,5 +46,22 @@ export async function showQueryResults() {
   let results = await response.json();
 
   let animeResults = results.data;
+  let links = results.links;
+
   renderQueriedAnime(animeResults);
+}
+
+export async function loadMoreQueryResults() {
+  offSetValue += 20;
+
+  try {
+    let url = `https://kitsu.io/api/edge/anime?filter%5Btext%5D=${mainSearchBar.value}&page%5Blimit%5D=20&page%5Boffset%5D=${offSetValue}`;
+    const response = await fetch(url, { mode: "cors" });
+    const result = await response.json();
+
+    const moreMedia = result.data;
+    loadMoreAnime(moreMedia);
+  } catch (error) {
+    console.log(`error occured: ${error}`);
+  }
 }
