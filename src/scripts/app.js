@@ -5,6 +5,7 @@ import { showQueryResults, loadMoreQueryResults } from "./anime.js";
 export const mainSearchBar = document.getElementById("query");
 const mainContainer = document.querySelector(".container");
 const loadMoreBtn = document.getElementById("load-more");
+const queryResults = document.querySelector(".query-results");
 
 // functions invoked when page loads
 window.addEventListener("DOMContentLoaded", () => {
@@ -12,6 +13,9 @@ window.addEventListener("DOMContentLoaded", () => {
   createPopularUpcoming();
   createTrending();
   createAllTimePopular();
+  if (!queryResults.hasChildNodes()) {
+    loadMoreBtn.style.transform = "scale(0)";
+  }
 });
 
 // hide navbar on scroll
@@ -21,8 +25,12 @@ window.addEventListener("scroll", () => {
   let currentScrollPos = window.scrollY;
   if (prevScrollPos > currentScrollPos) {
     nav.style.top = "0";
+    loadMoreBtn.style.transform = "scale(0)";
   } else {
     nav.style.top = "-75px";
+    if (queryResults.hasChildNodes()) {
+      loadMoreBtn.style.transform = "scale(1) translate(-50%, -50%)";
+    }
   }
   prevScrollPos = currentScrollPos;
 });
