@@ -142,16 +142,17 @@ export function renderQueriedAnime(array) {
     canonicalTitle.textContent = anime.attributes.canonicalTitle;
     const averageRating = document.createElement("p");
     averageRating.classList.add("average-rating");
-    if (anime.attributes.averageRating <= 50) {
+    const roundedRating = Math.round(anime.attributes.averageRating);
+    if (roundedRating <= 50) {
       averageRating.classList.add("poor-avg-rating");
-    } else if (anime.attributes.averageRating > 50 && anime.attributes.averageRating < 70) {
+    } else if (roundedRating > 50 && roundedRating < 70) {
       averageRating.classList.add("ok-avg-rating");
-    } else if (anime.attributes.averageRating >= 70 && anime.attributes.averageRating < 80) {
+    } else if (roundedRating >= 70 && roundedRating < 80) {
       averageRating.classList.add("good-avg-rating");
     } else {
       averageRating.classList.add("great-avg-rating");
     }
-    averageRating.textContent = `${String(Math.round(anime.attributes.averageRating))}%`;
+    averageRating.textContent = `${String(Math.round(roundedRating))}%`;
     const mediaType = document.createElement("p");
     mediaType.classList.add("media-type");
     if (anime.attributes.showType == "TV") {

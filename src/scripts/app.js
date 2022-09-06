@@ -1,4 +1,10 @@
-import { createPopular_airing, createPopularUpcoming, createAllTimePopular, createTrending } from "./dom.js";
+import {
+  createPopular_airing,
+  createPopularUpcoming,
+  createAllTimePopular,
+  createTrending,
+  clearAnime,
+} from "./dom.js";
 import { showQueryResults, loadMoreQueryResults } from "./anime.js";
 
 // dom selection
@@ -7,6 +13,7 @@ const mainContainer = document.querySelector(".container");
 const loadMoreBtn = document.getElementById("load-more");
 const queryResults = document.querySelector(".query-results");
 const backToTop = document.getElementById("back-to-top");
+const clearBtn = document.querySelector(".clear-btn");
 
 // functions invoked when page loads
 window.addEventListener("DOMContentLoaded", () => {
@@ -51,4 +58,16 @@ loadMoreBtn.addEventListener("click", loadMoreQueryResults);
 
 backToTop.addEventListener("click", () => {
   window.scrollTo({ top: 0, behavior: "smooth" });
+});
+
+clearBtn.addEventListener("click", () => {
+  if (queryResults.classList.contains("visible")) {
+    queryResults.classList.remove("visible");
+    mainSearchBar.value = " ";
+    clearAnime(queryResults);
+    createPopular_airing();
+    createPopularUpcoming();
+    createTrending();
+    createAllTimePopular();
+  }
 });

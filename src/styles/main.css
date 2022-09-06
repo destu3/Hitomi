@@ -298,12 +298,13 @@ body {
 }
 
 .media-type {
-  font-size: 0.9rem;
+  font-size: 0.82rem;
   color: var(--grey-text-color-3);
+  margin: 3px;
 }
 
 .synopsis {
-  font-size: 0.85rem;
+  font-size: 0.8rem;
   text-overflow: ellipsis;
   overflow: hidden;
   display: -webkit-box !important;
@@ -365,8 +366,6 @@ body {
 
 /* anime query results */
 .query-results {
-  /* change */
-  visibility: visible;
   margin: 0;
 }
 
@@ -386,7 +385,7 @@ body {
   margin: 0 15px;
   position: fixed;
   left: 50%;
-  bottom: 35px;
+  bottom: 15px;
   transform: translate(-50%, -50%);
   cursor: pointer;
   font-size: 19px;
