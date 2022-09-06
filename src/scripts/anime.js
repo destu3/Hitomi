@@ -1,4 +1,4 @@
-import { renderLpAnime, renderQueriedAnime, loadMoreAnime } from "./dom.js";
+import { renderLpAnime, renderQueriedAnime, loadMoreAnime } from "./card.js";
 
 const mainSearchBar = document.getElementById("query");
 
