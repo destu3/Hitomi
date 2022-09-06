@@ -6,6 +6,7 @@ import {
   clearAnime,
 } from "./dom.js";
 import { showQueryResults, loadMoreQueryResults } from "./anime.js";
+import "../styles/main.css";
 
 // dom selection
 export const mainSearchBar = document.getElementById("query");
