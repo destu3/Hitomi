@@ -49,6 +49,7 @@ body {
   color: var(--main-background-color);
   font-weight: bolder;
   margin-left: 30px;
+  text-decoration: none;
 }
 
 #brand-name::first-letter {
@@ -182,7 +183,6 @@ body {
   width: 100%;
   min-width: 300px;
   margin: 40px 0;
-  margin-bottom: 100px;
 }
 
 .landing-section h3 {
@@ -244,7 +244,7 @@ body {
   transform: scaleX(0);
   transform-origin: 0% 100%;
   transition: all 0.2s ease-in;
-  padding: 5px;
+  padding: 15px;
 }
 
 .speech-bubble:after {
@@ -266,9 +266,107 @@ body {
 }
 /* End of anime card styles */
 
+/* anime details */
+.canonical-title {
+  color: var(--brand-blue-color);
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.average-rating {
+  position: absolute;
+  right: 15px;
+  bottom: 15px;
+  font-weight: bold;
+}
+
+.poor-avg-rating {
+  color: #db2020;
+}
+
+.ok-avg-rating {
+  color: #ff8e15;
+}
+
+.good-avg-rating {
+  color: #acb334;
+}
+
+.great-avg-rating {
+  color: #69b34c;
+}
+
+.media-type {
+  font-size: 0.9rem;
+  color: var(--grey-text-color-3);
+}
+
+.synopsis {
+  font-size: 0.85rem;
+  text-overflow: ellipsis;
+  overflow: hidden;
+  display: -webkit-box !important;
+  -webkit-line-clamp: 3;
+  -webkit-box-orient: vertical;
+  white-space: normal;
+  color: var(--lighter-blue-text-color);
+}
+
+.icon-item {
+  border: none;
+  background: transparent;
+  position: absolute;
+  left: 7.5px;
+  bottom: 6px;
+}
+
+.icon-link {
+  display: inline-flex;
+  font-size: 23px;
+  text-decoration: none;
+  color: #cd201f;
+  width: 2.6rem;
+  height: 2.6rem;
+  transition: 0.5s linear;
+  position: relative;
+  z-index: 1;
+  margin: auto;
+}
+
+.icon-link:hover {
+  color: #fff;
+}
+
+.icon-link i {
+  margin: auto;
+}
+
+.icon-link::before {
+  content: "";
+  position: absolute;
+  width: 2.6rem;
+  height: 2.6rem;
+  border-radius: 50%;
+  z-index: -1;
+  transform: scale(0);
+  transition: 0.3s cubic-bezier(0.95, 0.32, 0.37, 1.21);
+}
+
+.icon-link:hover::before {
+  transform: scale(1);
+}
+
+.yt-video a:hover:before {
+  background: #cd201f;
+}
+
+/* end of anime details */
+
 /* anime query results */
 .query-results {
-  visibility: hidden;
+  /* change */
+  visibility: visible;
   margin: 0;
 }
 
@@ -302,9 +400,82 @@ body {
   opacity: 0.7;
 }
 
+#load-more:active {
+  outline: 0;
+}
+
 #load-more:hover {
   background: var(--purple-text-color);
   color: var(--brand-blue-color);
   opacity: 1;
 }
 /* end of load more */
+
+/* back to top */
+.noselect {
+  -webkit-touch-callout: none;
+  -webkit-user-select: none;
+  -khtml-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
+  -webkit-tap-highlight-color: transparent;
+}
+
+#back-to-top {
+  width: 75px;
+  height: 75px;
+  cursor: pointer;
+  background: var(--brand-blue-color);
+  border: none;
+  border-radius: 50%;
+  transition: all 0.2s ease-in-out;
+  position: fixed;
+  bottom: 50px;
+  right: 100px;
+  transform: scale(0);
+}
+
+#back-to-top svg {
+  fill: white;
+  width: 30px;
+  height: 30px;
+  position: absolute;
+  transform: translateX(-50%) translateY(-50%);
+}
+
+#back-to-top:hover {
+  box-shadow: 0 1px 5px rgba(0, 0, 0, 0.2);
+  transform: scale(1.04);
+}
+
+#back-to-top:hover::before {
+  color: #fff;
+}
+
+#back-to-top:hover svg {
+  animation: bounce 1s infinite linear;
+}
+
+@keyframes bounce {
+  0% {
+    transform: translateX(-50%) translateY(-50%);
+  }
+  25% {
+    transform: translateX(-50%) translateY(-65%);
+  }
+  50% {
+    transform: translateX(-50%) translateY(-50%);
+  }
+  75% {
+    transform: translateX(-50%) translateY(-35%);
+  }
+  100% {
+    transform: translateX(-50%) translateY(-50%);
+  }
+}
+
+#back-to-top:focus {
+  outline: none;
+}
+/* end of back to top */

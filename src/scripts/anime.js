@@ -46,7 +46,6 @@ export async function showQueryResults() {
   let results = await response.json();
 
   let animeResults = results.data;
-  let links = results.links;
 
   renderQueriedAnime(animeResults);
 }
