@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.2.0/css/all.min.css"
+      integrity="sha512-xh6O/CkQoPOWDdYTDqeRdPCVd1SpvCA9XXcUnZS2FmJNp1coAFzvtCN9BmamE+4aHK8yyUHUSCcJHgXloTyT2A=="
+      crossorigin="anonymous"
+      referrerpolicy="no-referrer"
+    />
+    <title>Hitomi</title>
+  </head>
+  <body>
+    <div id="nav">
+      <a href="./index.html" id="brand-name">HITOMI</a>
+      <div class="links">
+        <a href="">Home</a>
+        <a href="">Profile</a>
+        <a href="">Anime List</a>
+        <a href="">Manga List</a>
+        <a href="">Browse</a>
+        <a href="">Forum</a>
+      </div>
+      <div class="right-side-nav">
+        <i class="fa-sharp fa-solid fa-magnifying-glass"></i>
+        <img src="../src/images/EsxiYdlXEAMniRp.jpg" id="pfp" />
+      </div>
+    </div>
+    <div class="container">
+      <!-- search section -->
+      <section id="search-section">
+        <i class="fa-sharp fa-solid fa-magnifying-glass"></i>
+        <input type="search" id="query" />
+        <i class="fa-sharp fa-solid fa-xmark clear-btn"></i>
+      </section>
+      <!-- end of search section -->
+
+      <section class="query-results"></section>
+    </div>
+    <button id="load-more">Load More</button>
+    <button class="noselect" id="back-to-top">
+      <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24">
+        <path d="M0 16.67l2.829 2.83 9.175-9.339 9.167 9.339 2.829-2.83-11.996-12.17z" />
+      </svg>
+    </button>
+    <script type="module" src="bundle.js"></script>
+  </body>
+</html>
