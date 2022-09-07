@@ -37,3 +37,12 @@ export function clearAnime(parentElement) {
     parentElement.removeChild(parentElement.firstChild);
   }
 }
+
+export function showDetailsOverlay(anime) {
+  const overlay = document.getElementById("anime-info-overlay");
+  const coverImg = document.getElementById("cover-image");
+  coverImg.style.backgroundImage = `url(${anime.attributes.coverImage.original})`;
+  const posterImg = document.getElementById("poster-img");
+  posterImg.src = anime.attributes.posterImage.large;
+  overlay.style.transform = "scaleX(1)";
+}

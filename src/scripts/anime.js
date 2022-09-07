@@ -47,7 +47,7 @@ export async function showQueryResults() {
 
   let animeResults = results.data;
 
-  renderQueriedAnime(animeResults);
+  renderQueriedAnime(animeResults, "query-results");
 }
 
 export async function loadMoreQueryResults() {
@@ -59,8 +59,8 @@ export async function loadMoreQueryResults() {
     const result = await response.json();
 
     const moreMedia = result.data;
-    loadMoreAnime(moreMedia);
+    loadMoreAnime(moreMedia, "query-results");
   } catch (error) {
-    console.log(`error occured: ${error}`);
+    console.log(`error occurred: ${error}`);
   }
 }
