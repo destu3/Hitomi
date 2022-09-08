@@ -17,6 +17,9 @@ const backToTop = document.getElementById("back-to-top");
 const clearBtn = document.querySelector(".clear-btn");
 const overlay = document.getElementById("anime-info-overlay");
 const closeOverlayBtn = document.querySelector(".button");
+const showDropDown = document.querySelector(".fa-bars");
+const hideDropDown = document.querySelector(".fa-angles-up");
+const navLinks = document.querySelector(".links");
 
 // functions invoked when page loads
 window.addEventListener("DOMContentLoaded", () => {
@@ -27,6 +30,7 @@ window.addEventListener("DOMContentLoaded", () => {
   if (!queryResults.hasChildNodes()) {
     loadMoreBtn.style.transform = "scale(0)";
   }
+  mainSearchBar.focus();
 });
 
 // scroll related functionality
@@ -41,8 +45,12 @@ window.addEventListener("scroll", () => {
   } else {
     nav.style.top = "-75px";
     backToTop.style.transform = "scale(1)";
-    if (queryResults.hasChildNodes()) {
+    if (queryResults.hasChildNodes() && screen.width > 760) {
       loadMoreBtn.style.transform = "scale(1) translate(-50%, -50%)";
+    } else {
+      if (queryResults.hasChildNodes()) {
+        loadMoreBtn.style.transform = "scale(1) translate(0)";
+      }
     }
   }
   prevScrollPos = currentScrollPos;
@@ -83,4 +91,13 @@ clearBtn.addEventListener("click", () => {
 closeOverlayBtn.addEventListener("click", () => {
   overlay.style.opacity = "0";
   overlay.style.pointerEvents = "none";
+});
+
+// toggle drop down nav
+showDropDown.addEventListener("click", () => {
+  navLinks.classList.add("show-drop-down");
+});
+
+hideDropDown.addEventListener("click", () => {
+  navLinks.classList.remove("show-drop-down");
 });

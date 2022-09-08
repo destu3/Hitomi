@@ -183,7 +183,7 @@ export async function showQueryResults(pageNum) {
       total
       perPage
     }
-    media(search: $search, type: ANIME) {
+    media(search: $search, type: ANIME, sort: SEARCH_MATCH) {
       ${DEFAULT_FIELDS}
     }
   }
@@ -227,21 +227,19 @@ export async function loadMoreQueryResults(pageNum) {
       total
       perPage
     }
-    media(search: $search, type: ANIME) {
+    media(search: $search, type: ANIME, sort: SEARCH_MATCH) {
       ${DEFAULT_FIELDS}
     }
   }
 }
 `;
 
-  // Define our query variables and values that will be used in the query request
   let variables = {
     search: mainSearchBar.value,
     page: pageNum,
     perPage: 20,
   };
 
-  // Define the config we'll need for our Api request
   var url = "https://graphql.anilist.co",
     options = {
       method: "POST",

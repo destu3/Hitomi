@@ -25,7 +25,12 @@ export function renderCards(array, $section) {
     });
 
     animeCard.addEventListener("mouseover", () => {
-      title.style.color = anime.coverImage.color;
+      if (anime.coverImage.color != null) {
+        title.style.color = anime.coverImage.color;
+      } else {
+        title.style.color = "var(--brand-blue-color)";
+      }
+
       animeCard.querySelector(".canonical-title").style.color = anime.coverImage.color;
     });
 
@@ -44,13 +49,6 @@ function createAnimeDetails(anime) {
   const canonicalTitle = document.createElement("p");
   canonicalTitle.classList.add("canonical-title");
   canonicalTitle.textContent = determineTitle(anime);
-  const averageRating = document.createElement("p");
-  averageRating.classList.add("average-rating", determineRatingColor(anime));
-  averageRating.textContent = `${String(anime.averageScore)}%`;
-  if (anime.averageScore === null) {
-    averageRating.textContent = "N/A";
-    averageRating.style.color = "var(--grey-text-color-3)";
-  }
   const mediaType = document.createElement("p");
   mediaType.classList.add("media-type");
   mediaType.textContent = determineMediaType(anime);
@@ -60,9 +58,12 @@ function createAnimeDetails(anime) {
   mediaType.appendChild(animeStatus);
   const synopsis = document.createElement("p");
   synopsis.classList.add("synopsis");
-  let description = anime.description;
+  let description = anime.description.replace(/(<([^>]+)>)/gi, "");
   synopsis.textContent = description;
-  animeDetails.append(canonicalTitle, averageRating, mediaType, synopsis);
+  const genreContainer = document.createElement("div");
+  genreContainer.classList.add("genres");
+  createGenreTags(anime, genreContainer);
+  animeDetails.append(canonicalTitle, mediaType, synopsis, genreContainer);
   return animeDetails;
 }
 
@@ -150,4 +151,18 @@ function determineStatus(anime) {
     }
   }
   return status;
+}
+
+function createGenreTags(anime, element) {
+  const firstTwoGenres = anime.genres.slice(0, 2);
+  firstTwoGenres.forEach(genre => {
+    const genreTag = document.createElement("div");
+    genreTag.classList.add("genre-tag");
+    genreTag.textContent = genre;
+    if (anime.coverImage.color === null) {
+      genreTag.style.backgroundColor = "var(--brand-blue-color)";
+    }
+    genreTag.style.backgroundColor = `${anime.coverImage.color}`;
+    element.appendChild(genreTag);
+  });
 }
