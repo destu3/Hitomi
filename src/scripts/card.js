@@ -6,21 +6,31 @@ export function renderCards(array, $section) {
   array.forEach(anime => {
     const animeCard = document.createElement("div");
     animeCard.classList.add("anime-card");
-    const poster = document.createElement("img");
+    const poster = document.createElement("div");
     poster.classList.add("poster");
-    const title = document.createElement("a");
-    title.href = `https://kitsu.io/anime/${anime.attributes.slug}`;
-    title.target = "_target";
+    const title = document.createElement("p");
     title.classList.add("title");
     title.textContent = determineTitle(anime);
-    poster.src = anime.attributes.posterImage.large;
+    poster.style.backgroundImage = `url(${anime.coverImage.extraLarge})`;
+    poster.style.backgroundSize = "cover";
+    poster.style.backgroundRepeat = "none";
+    poster.style.backgroundPosition = "center";
     const animeDetails = createAnimeDetails(anime);
-    animeCard.append(poster, title, animeDetails);
+    animeCard.append(poster, title);
     const section = document.querySelector(`.${$section}`);
+    animeCard.append(poster, title, animeDetails);
 
     animeCard.addEventListener("click", () => {
       showDetailsOverlay(anime);
-      console.log(anime);
+    });
+
+    animeCard.addEventListener("mouseover", () => {
+      title.style.color = anime.coverImage.color;
+      animeCard.querySelector(".canonical-title").style.color = anime.coverImage.color;
+    });
+
+    animeCard.addEventListener("mouseout", () => {
+      title.style.color = "var(--grey-text-color-2)";
     });
 
     section.appendChild(animeCard);
@@ -33,10 +43,14 @@ function createAnimeDetails(anime) {
   animeDetails.classList.add("speech-bubble", "anime-details");
   const canonicalTitle = document.createElement("p");
   canonicalTitle.classList.add("canonical-title");
-  canonicalTitle.textContent = anime.attributes.canonicalTitle;
+  canonicalTitle.textContent = determineTitle(anime);
   const averageRating = document.createElement("p");
   averageRating.classList.add("average-rating", determineRatingColor(anime));
-  averageRating.textContent = `${String(Math.round(anime.attributes.averageRating))}%`;
+  averageRating.textContent = `${String(anime.averageScore)}%`;
+  if (anime.averageScore === null) {
+    averageRating.textContent = "N/A";
+    averageRating.style.color = "var(--grey-text-color-3)";
+  }
   const mediaType = document.createElement("p");
   mediaType.classList.add("media-type");
   mediaType.textContent = determineMediaType(anime);
@@ -46,18 +60,9 @@ function createAnimeDetails(anime) {
   mediaType.appendChild(animeStatus);
   const synopsis = document.createElement("p");
   synopsis.classList.add("synopsis");
-  synopsis.textContent = anime.attributes.synopsis;
-  const ytBtn = document.createElement("button");
-  ytBtn.classList.add("icon-item", "yt-video");
-  const ytLink = document.createElement("a");
-  ytLink.href = ` https://www.youtube.com/watch?v=${anime.attributes.youtubeVideoId}`;
-  ytLink.target = "_blank";
-  ytLink.classList.add("icon-link");
-  const ytIcon = document.createElement("i");
-  ytIcon.classList.add("fab", "fa-youtube");
-  ytLink.appendChild(ytIcon);
-  ytBtn.appendChild(ytLink);
-  animeDetails.append(canonicalTitle, averageRating, mediaType, synopsis, ytBtn);
+  let description = anime.description;
+  synopsis.textContent = description;
+  animeDetails.append(canonicalTitle, averageRating, mediaType, synopsis);
   return animeDetails;
 }
 
@@ -84,23 +89,26 @@ export function loadMoreAnime(array, section) {
 
 function determineTitle(anime) {
   let title = null;
-  const titleObject = anime.attributes.titles;
-  if (titleObject.hasOwnProperty("en")) {
-    title = titleObject.en;
+  const titleObject = anime.title;
+  if (titleObject.english === null) {
+    title = titleObject.romaji;
   } else {
-    title = anime.attributes.canonicalTitle;
+    title = titleObject.english;
   }
   return title;
 }
 
 function determineRatingColor(anime) {
   let ratingValue = null;
-  const roundedRating = Math.round(anime.attributes.averageRating);
-  if (roundedRating <= 50) {
+  const rating = anime.averageScore;
+  if (rating === null) {
+    ratingValue = 0;
+  }
+  if (rating <= 50) {
     ratingValue = "poor-avg-rating";
-  } else if (roundedRating > 50 && roundedRating < 70) {
+  } else if (rating > 50 && rating < 70) {
     ratingValue = "ok-avg-rating";
-  } else if (roundedRating >= 70 && roundedRating < 80) {
+  } else if (rating >= 70 && rating < 80) {
     ratingValue = "good-avg-rating";
   } else {
     ratingValue = "great-avg-rating";
@@ -110,28 +118,36 @@ function determineRatingColor(anime) {
 
 function determineMediaType(anime) {
   let mediaType = null;
-  const showType = anime.attributes.showType;
+  const showType = anime.format;
   if (showType == "TV") {
     mediaType = "TV Show • ";
-  } else if (showType == "movie") {
+  } else if (showType == "MOVIE") {
     mediaType = "Movie • ";
   } else if (showType == "OVA") {
     mediaType = "OVA • ";
   } else if (showType == "ONA") {
     mediaType = "ONA • ";
+  } else if (showType == "TV_SHORT") {
+    mediaType = "TV Short • ";
+  } else {
+    mediaType = "Other • ";
   }
   return mediaType;
 }
 
 function determineStatus(anime) {
   let status = null;
-  const animeStatus = anime.attributes.status;
-  if (animeStatus == "current") {
+  const animeStatus = anime.status;
+  if (animeStatus == "RELEASING") {
     status = "Currently Airing";
-  } else if (animeStatus == "finished") {
-    status = `Finished • ${anime.attributes.episodeCount} episodes `;
-  } else if (animeStatus == "upcoming") {
-    status = `Upcoming • ${anime.attributes.startDate} `;
+  } else if (animeStatus == "FINISHED") {
+    status = `Finished • ${anime.episodes} episodes `;
+  } else if (animeStatus == "NOT_YET_RELEASED") {
+    if (anime.startDate.day === null || anime.startDate.month === null || anime.startDate.year === null) {
+      status = `Upcoming • ${anime.startDate.year}`;
+    } else {
+      status = `Upcoming • ${anime.startDate.day}/${anime.startDate.month}/${anime.startDate.year}`;
+    }
   }
   return status;
 }

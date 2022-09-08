@@ -15,6 +15,8 @@ const loadMoreBtn = document.getElementById("load-more");
 const queryResults = document.querySelector(".query-results");
 const backToTop = document.getElementById("back-to-top");
 const clearBtn = document.querySelector(".clear-btn");
+const overlay = document.getElementById("anime-info-overlay");
+const closeOverlayBtn = document.querySelector(".button");
 
 // functions invoked when page loads
 window.addEventListener("DOMContentLoaded", () => {
@@ -46,16 +48,21 @@ window.addEventListener("scroll", () => {
   prevScrollPos = currentScrollPos;
 });
 
+let pageNum = 1;
+
 // event listeners
 mainSearchBar.addEventListener("input", e => {
   const landingPageSection = document.querySelectorAll(".landing-section");
   landingPageSection.forEach(section => {
     mainContainer.removeChild(section);
   });
-  showQueryResults();
+  showQueryResults(pageNum);
 });
 
-loadMoreBtn.addEventListener("click", loadMoreQueryResults);
+loadMoreBtn.addEventListener("click", () => {
+  pageNum++;
+  loadMoreQueryResults(pageNum);
+});
 
 backToTop.addEventListener("click", () => {
   window.scrollTo({ top: 0, behavior: "smooth" });
@@ -71,4 +78,9 @@ clearBtn.addEventListener("click", () => {
     createTrending();
     createAllTimePopular();
   }
+});
+
+closeOverlayBtn.addEventListener("click", () => {
+  overlay.style.opacity = "0";
+  overlay.style.pointerEvents = "none";
 });

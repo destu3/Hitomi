@@ -41,8 +41,18 @@ export function clearAnime(parentElement) {
 export function showDetailsOverlay(anime) {
   const overlay = document.getElementById("anime-info-overlay");
   const coverImg = document.getElementById("cover-image");
-  coverImg.style.backgroundImage = `url(${anime.attributes.coverImage.original})`;
+  if (anime.bannerImage === null) {
+    coverImg.style.backgroundImage = `url(${anime.coverImage.extraLarge})`;
+    coverImg.style.backgroundSize = "contain";
+    coverImg.style.backgroundRepeat = "repeat-x";
+  } else {
+    coverImg.style.backgroundImage = `url(${anime.bannerImage})`;
+    coverImg.style.backgroundSize = "cover";
+    coverImg.style.backgroundRepeat = "none";
+  }
+
   const posterImg = document.getElementById("poster-img");
-  posterImg.src = anime.attributes.posterImage.large;
-  overlay.style.transform = "scaleX(1)";
+  posterImg.src = anime.coverImage.extraLarge;
+  overlay.style.opacity = "1";
+  overlay.style.pointerEvents = "all";
 }
