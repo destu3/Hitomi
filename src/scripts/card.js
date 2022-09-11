@@ -25,7 +25,6 @@ export function renderCards(array, $section) {
       animeBubble.classList.add("hide-bubble");
       document.body.classList.add("no-scroll");
       showOverlay(anime);
-      console.log(anime);
     });
 
     animeCard.addEventListener("mouseover", () => {
