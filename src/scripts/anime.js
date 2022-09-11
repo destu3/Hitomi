@@ -22,7 +22,8 @@ const DEFAULT_FIELDS = `id
     month
     day
   }
-  seasonInt
+  season
+  seasonYear
   format
   status
   episodes
@@ -39,7 +40,13 @@ const DEFAULT_FIELDS = `id
   }
   description
   averageScore
-  popularity`;
+  popularity
+  duration
+  nextAiringEpisode{
+    airingAt
+    timeUntilAiring
+    episode
+  }`;
 
 mainSearchBar.addEventListener("input", () => {
   offSetValue = 0;

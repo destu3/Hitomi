@@ -15,7 +15,7 @@ const loadMoreBtn = document.getElementById("load-more");
 const queryResults = document.querySelector(".query-results");
 const backToTop = document.getElementById("back-to-top");
 const clearBtn = document.querySelector(".clear-btn");
-const overlay = document.getElementById("anime-info-overlay");
+const overlay = document.getElementById("overlay");
 const closeOverlayBtn = document.querySelector(".button");
 const showDropDown = document.querySelector(".fa-bars");
 const hideDropDown = document.querySelector(".fa-angles-up");
@@ -91,6 +91,10 @@ clearBtn.addEventListener("click", () => {
 closeOverlayBtn.addEventListener("click", () => {
   overlay.style.opacity = "0";
   overlay.style.pointerEvents = "none";
+  document.body.classList.remove("no-scroll");
+  document.querySelectorAll(".speech-bubble").forEach(bubble => {
+    bubble.classList.remove("hide-bubble");
+  });
 });
 
 // toggle drop down nav

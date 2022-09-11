@@ -38,8 +38,8 @@ export function clearAnime(parentElement) {
   }
 }
 
-export function showDetailsOverlay(anime) {
-  const overlay = document.getElementById("anime-info-overlay");
+export function showOverlay(anime) {
+  const overlay = document.getElementById("overlay");
   const coverImg = document.getElementById("cover-image");
   if (anime.bannerImage === null) {
     coverImg.style.backgroundImage = `url(${anime.coverImage.extraLarge})`;

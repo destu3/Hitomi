@@ -1,4 +1,4 @@
-import { clearAnime, showDetailsOverlay } from "./dom.js";
+import { clearAnime, showOverlay } from "./dom.js";
 
 // anime rendering functions
 export function renderCards(array, $section) {
@@ -21,7 +21,11 @@ export function renderCards(array, $section) {
     animeCard.append(poster, title, animeDetails);
 
     animeCard.addEventListener("click", () => {
-      showDetailsOverlay(anime);
+      const animeBubble = animeCard.querySelector(".speech-bubble");
+      animeBubble.classList.add("hide-bubble");
+      document.body.classList.add("no-scroll");
+      showOverlay(anime);
+      console.log(anime);
     });
 
     animeCard.addEventListener("mouseover", () => {
