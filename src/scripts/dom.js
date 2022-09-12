@@ -111,14 +111,14 @@ export function showOverlay(anime) {
     episodeDuration.textContent = "25 minutes (approximately)";
   }
 
-  if (anime.nextAiringEpisode == null) {
+  if (anime.nextAiringEpisode == null && anime.status === "FINISHED") {
+    nextEpisode.textContent = "Anime has finished airing";
+  } else if (anime.nextAiringEpisode == null) {
     nextEpisode.textContent = "Unknown";
   } else if (anime.nextAiringEpisode != null) {
     nextEpisode.textContent = `Episode ${anime.nextAiringEpisode.episode} airing: ${secondsFormat(
       anime.nextAiringEpisode.timeUntilAiring
     )}`;
-  } else {
-    nextEpisode.textContent = "Anime has finished airing";
   }
 }
 
