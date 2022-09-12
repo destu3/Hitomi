@@ -1,4 +1,4 @@
-import { getPopularAiring, getPopularUpcoming, getAllTimePopular, getTrending } from "./anime.js";
+import { getPopularAiring, getPopularNextSeason, getAllTimePopular, getTrending } from "./anime.js";
 import { determineTitle, determineStatus, createGenreTags } from "./card.js";
 
 // creating landing page sections
@@ -21,8 +21,8 @@ export function createPopular_airing() {
   createLpSection("POPULAR: CURRENTLY AIRING", "popular-airing", getPopularAiring);
 }
 
-export function createPopularUpcoming() {
-  createLpSection("POPULAR: UPCOMING", "popular-upcoming", getPopularUpcoming);
+export function createPopularNextSeason() {
+  createLpSection("UPCOMING NEXT SEASON", "popular-next-season", getPopularNextSeason);
 }
 
 export function createAllTimePopular() {

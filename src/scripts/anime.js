@@ -1,4 +1,5 @@
 import { renderLpAnime, renderQueriedAnime, loadMoreAnime } from "./card.js";
+import { getNextSeason } from "./app.js";
 
 const mainSearchBar = document.getElementById("query");
 
@@ -65,14 +66,14 @@ const API_QUERIES_AND_VARIABLES = {
       perPage: 6,
     },
   },
-  popularUpcoming: {
+  popularNextSeason: {
     query: `query ($page: Int, $perPage: Int) {
     Page(page: $page, perPage: $perPage) {
       pageInfo {
         total
         perPage
       }
-      media(type: ANIME, status: NOT_YET_RELEASED, sort: POPULARITY_DESC) {
+      media(type: ANIME, status: NOT_YET_RELEASED, season: ${getNextSeason()}, sort: POPULARITY_DESC) {
         ${DEFAULT_FIELDS}
       }
     }
@@ -156,11 +157,11 @@ export async function getPopularAiring() {
   );
 }
 
-export async function getPopularUpcoming() {
+export async function getPopularNextSeason() {
   getLpAnime(
-    API_QUERIES_AND_VARIABLES.popularUpcoming.query,
-    "popular-upcoming",
-    API_QUERIES_AND_VARIABLES.popularUpcoming.variable
+    API_QUERIES_AND_VARIABLES.popularNextSeason.query,
+    "popular-next-season",
+    API_QUERIES_AND_VARIABLES.popularNextSeason.variable
   );
 }
 

@@ -1,11 +1,11 @@
 import {
   createPopular_airing,
-  createPopularUpcoming,
+  createPopularNextSeason,
   createAllTimePopular,
   createTrending,
   removeChildNodes,
 } from "./dom.js";
-import { showQueryResults, loadMoreQueryResults } from "./anime.js";
+import { showQueryResults, loadMoreQueryResults, getPopularNextSeason } from "./anime.js";
 import "../styles/main.css";
 
 // dom selection
@@ -24,7 +24,7 @@ const navLinks = document.querySelector(".links");
 // functions invoked when page loads
 window.addEventListener("DOMContentLoaded", () => {
   createPopular_airing();
-  createPopularUpcoming();
+  createPopularNextSeason();
   createTrending();
   createAllTimePopular();
   if (!queryResults.hasChildNodes()) {
@@ -105,3 +105,61 @@ showDropDown.addEventListener("click", () => {
 hideDropDown.addEventListener("click", () => {
   navLinks.classList.remove("show-drop-down");
 });
+
+// function to get current season and next season
+function getCurrentSeason() {
+  // It's plus one because January is index 0
+  const now = new Date();
+  const month = now.getMonth() + 1;
+
+  if (month > 3 && month < 6) {
+    return "spring";
+  }
+
+  if (month > 6 && month < 9) {
+    return "summer";
+  }
+
+  if (month > 9 && month < 12) {
+    return "fall";
+  }
+
+  if (month >= 1 && month < 3) {
+    return "winter";
+  }
+
+  const day = now.getDate();
+  if (month === 3) {
+    return day < 22 ? "winter" : "spring";
+  }
+
+  if (month === 6) {
+    return day < 22 ? "spring" : "summer";
+  }
+
+  if (month === 9) {
+    return day < 22 ? "summer" : "fall";
+  }
+
+  if (month === 12) {
+    return day < 22 ? "fall" : "winter";
+  }
+
+  console.error("Unable to calculate current season");
+}
+
+export function getNextSeason() {
+  const currentSeason = getCurrentSeason();
+  let nextSeason = null;
+
+  if (currentSeason == "fall") {
+    nextSeason = "WINTER";
+  } else if (currentSeason == "spring") {
+    nextSeason = "SUMMER";
+  } else if (currentSeason == "summer") {
+    nextSeason = "FALL";
+  } else if (nextSeason == "winter") {
+    nextSeason = "SPRING";
+  }
+  return nextSeason;
+}
