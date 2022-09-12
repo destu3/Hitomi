@@ -3,7 +3,7 @@ import {
   createPopularUpcoming,
   createAllTimePopular,
   createTrending,
-  clearAnime,
+  removeChildNodes,
 } from "./dom.js";
 import { showQueryResults, loadMoreQueryResults } from "./anime.js";
 import "../styles/main.css";
@@ -80,7 +80,7 @@ clearBtn.addEventListener("click", () => {
   if (queryResults.classList.contains("visible")) {
     queryResults.classList.remove("visible");
     mainSearchBar.value = " ";
-    clearAnime(queryResults);
+    removeChildNodes(queryResults);
     createPopular_airing();
     createPopularUpcoming();
     createTrending();

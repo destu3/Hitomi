@@ -1,4 +1,4 @@
-import { clearAnime, showOverlay } from "./dom.js";
+import { removeChildNodes, showOverlay } from "./dom.js";
 
 // anime rendering functions
 export function renderCards(array, $section) {
@@ -25,6 +25,7 @@ export function renderCards(array, $section) {
       animeBubble.classList.add("hide-bubble");
       document.body.classList.add("no-scroll");
       showOverlay(anime);
+      console.log(anime);
     });
 
     animeCard.addEventListener("mouseover", () => {
@@ -61,11 +62,10 @@ function createAnimeDetails(anime) {
   mediaType.appendChild(animeStatus);
   const synopsis = document.createElement("p");
   synopsis.classList.add("synopsis");
-  let description = anime.description.replace(/(<([^>]+)>)/gi, "");
-  synopsis.textContent = description;
+  synopsis.innerHTML = anime.description;
   const genreContainer = document.createElement("div");
   genreContainer.classList.add("genres");
-  createGenreTags(anime, genreContainer);
+  createGenreTags(anime, genreContainer, 2, "genre-tag");
   animeDetails.append(canonicalTitle, mediaType, synopsis, genreContainer);
   return animeDetails;
 }
@@ -80,7 +80,7 @@ const queryResultsContainer = document.querySelector(".query-results");
 // creates cards for anime that match search term and renders them
 export function renderQueriedAnime(array, section) {
   queryResultsContainer.classList.add("visible");
-  clearAnime(queryResultsContainer);
+  removeChildNodes(queryResultsContainer);
 
   renderCards(array, section);
 }
@@ -91,7 +91,7 @@ export function loadMoreAnime(array, section) {
 }
 // end of anime rendering functions
 
-function determineTitle(anime) {
+export function determineTitle(anime) {
   let title = null;
   const titleObject = anime.title;
   if (titleObject.english === null) {
@@ -139,7 +139,7 @@ function determineMediaType(anime) {
   return mediaType;
 }
 
-function determineStatus(anime) {
+export function determineStatus(anime) {
   let status = null;
   const animeStatus = anime.status;
   if (animeStatus == "RELEASING") {
@@ -156,11 +156,11 @@ function determineStatus(anime) {
   return status;
 }
 
-function createGenreTags(anime, element) {
-  const firstTwoGenres = anime.genres.slice(0, 2);
+export function createGenreTags(anime, element, numberOfGenres, _class) {
+  const firstTwoGenres = anime.genres.slice(0, numberOfGenres);
   firstTwoGenres.forEach(genre => {
     const genreTag = document.createElement("div");
-    genreTag.classList.add("genre-tag");
+    genreTag.classList.add(_class);
     genreTag.textContent = genre;
     if (anime.coverImage.color === null) {
       genreTag.style.backgroundColor = "var(--brand-blue-color)";

@@ -2,8 +2,6 @@ import { renderLpAnime, renderQueriedAnime, loadMoreAnime } from "./card.js";
 
 const mainSearchBar = document.getElementById("query");
 
-let offSetValue = 0;
-
 const DEFAULT_FIELDS = `id
   title {
     romaji
@@ -47,10 +45,6 @@ const DEFAULT_FIELDS = `id
     timeUntilAiring
     episode
   }`;
-
-mainSearchBar.addEventListener("input", () => {
-  offSetValue = 0;
-});
 
 const API_QUERIES_AND_VARIABLES = {
   popularAiring: {
@@ -134,7 +128,7 @@ async function getLpAnime(query, lp_section, variables) {
   let _variables = variables;
 
   // Define the config we'll need for our Api request
-  var url = "https://graphql.anilist.co",
+  let url = "https://graphql.anilist.co",
     options = {
       method: "POST",
       headers: {
@@ -205,7 +199,7 @@ export async function showQueryResults(pageNum) {
   };
 
   // Define the config we'll need for our Api request
-  var url = "https://graphql.anilist.co",
+  let url = "https://graphql.anilist.co",
     options = {
       method: "POST",
       headers: {
@@ -247,7 +241,7 @@ export async function loadMoreQueryResults(pageNum) {
     perPage: 20,
   };
 
-  var url = "https://graphql.anilist.co",
+  let url = "https://graphql.anilist.co",
     options = {
       method: "POST",
       headers: {
