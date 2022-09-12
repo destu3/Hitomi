@@ -82,7 +82,7 @@ clearBtn.addEventListener("click", () => {
     mainSearchBar.value = " ";
     removeChildNodes(queryResults);
     createPopular_airing();
-    createPopularUpcoming();
+    createPopularNextSeason();
     createTrending();
     createAllTimePopular();
   }
@@ -105,6 +105,8 @@ showDropDown.addEventListener("click", () => {
 hideDropDown.addEventListener("click", () => {
   navLinks.classList.remove("show-drop-down");
 });
+
+// end of event listeners
 
 // function to get current season and next season
 function getCurrentSeason() {

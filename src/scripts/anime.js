@@ -63,7 +63,7 @@ const API_QUERIES_AND_VARIABLES = {
     `,
     variable: {
       page: 1,
-      perPage: 6,
+      perPage: 20,
     },
   },
   popularNextSeason: {
@@ -81,7 +81,7 @@ const API_QUERIES_AND_VARIABLES = {
   `,
     variable: {
       page: 1,
-      perPage: 6,
+      perPage: 20,
     },
   },
   allTimePopular: {
@@ -99,7 +99,7 @@ const API_QUERIES_AND_VARIABLES = {
     `,
     variable: {
       page: 1,
-      perPage: 6,
+      perPage: 20,
     },
   },
   trending: {
@@ -117,7 +117,7 @@ const API_QUERIES_AND_VARIABLES = {
     `,
     variable: {
       page: 1,
-      perPage: 6,
+      perPage: 20,
     },
   },
 };

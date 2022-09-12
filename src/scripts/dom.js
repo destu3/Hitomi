@@ -14,6 +14,32 @@ function createLpSection(sectionName, sectionClassName, sectionFunction) {
   landingSect.append(trendingHeading, landingSectMedia);
   sectionFunction();
 
+  let isDown = false;
+  let startX;
+  let scrollLeft;
+
+  landingSectMedia.addEventListener("mousedown", e => {
+    isDown = true;
+    landingSectMedia.classList.add("active");
+    startX = e.pageX - landingSectMedia.offsetLeft;
+    scrollLeft = landingSectMedia.scrollLeft;
+  });
+  landingSectMedia.addEventListener("mouseleave", () => {
+    isDown = false;
+    landingSectMedia.classList.remove("active");
+  });
+  landingSectMedia.addEventListener("mouseup", () => {
+    isDown = false;
+    landingSectMedia.classList.remove("active");
+  });
+  landingSectMedia.addEventListener("mousemove", e => {
+    if (!isDown) return; //stops function from running
+    e.preventDefault();
+    const x = e.pageX - landingSectMedia.offsetLeft;
+    const walk = x - startX;
+    landingSectMedia.scrollLeft = scrollLeft - walk;
+  });
+
   mainContainer.appendChild(landingSect);
 }
 
@@ -46,21 +72,22 @@ export function showOverlay(anime) {
   const title = document.getElementById("anime-name");
   const origTitle = document.getElementById("orig-title");
   const animeDetails = document.getElementById("anime-details");
-  const videoLink = document.getElementById("video-link");
-  const watchTrailer = document.getElementById("watch-trailer");
   const animeDescription = document.getElementById("anime-description");
   const genreTagContainer = document.getElementById("genre-tags");
   const startDate = document.getElementById("start-date");
   const endDate = document.getElementById("end-date");
   const episodeDuration = document.getElementById("episode-duration");
   const nextEpisode = document.getElementById("time-until-next-ep");
+  const trailer = document.getElementById("trailer-video");
 
   if (anime.trailer === null) {
-    watchTrailer.style.display = "none";
+    trailer.height = "0";
+    trailer.style.marginBottom = "0";
   } else {
-    watchTrailer.style.display = "inline-block";
-    videoLink.href = `https://www.youtube.com/watch?v=${anime.trailer.id}`;
-    watchTrailer.style.background = anime.coverImage.color;
+    trailer.height = "202.50";
+    trailer.style.marginBottom = "15px";
+    trailer.style.display = "inline-block";
+    trailer.src = `https://www.youtube.com/embed/${anime.trailer.id}`;
   }
 
   if (anime.bannerImage === null) {

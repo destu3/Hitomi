@@ -18,14 +18,14 @@ export function renderCards(array, $section) {
     const animeDetails = createAnimeDetails(anime);
     animeCard.append(poster, title);
     const section = document.querySelector(`.${$section}`);
-    animeCard.append(poster, title, animeDetails);
+    animeCard.append(poster, title);
+    poster.append(animeDetails);
 
     animeCard.addEventListener("click", () => {
       const animeBubble = animeCard.querySelector(".speech-bubble");
       animeBubble.classList.add("hide-bubble");
       document.body.classList.add("no-scroll");
       showOverlay(anime);
-      console.log(anime);
     });
 
     animeCard.addEventListener("mouseover", () => {
