@@ -121,7 +121,7 @@ export function showOverlay(anime) {
   createGenreTags(anime, genreTagContainer, anime.genres.length, "more-details-genre-tag");
 
   let options = { weekday: "long", year: "numeric", month: "long", day: "numeric" };
-  const animeStartDate = new Date(anime.startDate.year, anime.startDate.month, anime.startDate.day);
+  const animeStartDate = new Date(anime.startDate.year, anime.startDate.month - 1, anime.startDate.day);
   const animeEndDate = new Date(anime.endDate.year, anime.endDate.month, anime.endDate.day);
 
   startDate.textContent = animeStartDate.toLocaleString("en-US", options);

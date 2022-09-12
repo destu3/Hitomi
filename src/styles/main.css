@@ -829,9 +829,9 @@ input[type="search"]::-webkit-search-results-decoration {
   }
 
   .anime-info {
-    max-width: 90%;
+    max-width: 95%;
     flex-direction: column;
-    justify-content: flex-start;
+    justify-content: center;
     align-items: center;
     position: relative;
     top: 10px;
@@ -844,6 +844,8 @@ input[type="search"]::-webkit-search-results-decoration {
   .main-info {
     position: relative;
     bottom: 100px;
+    display: flex;
+    flex-direction: column;
   }
 
   #genres {
@@ -852,7 +854,6 @@ input[type="search"]::-webkit-search-results-decoration {
 
   #trailer-video {
     width: 300px;
-    height: 168.75px;
   }
 }
 
