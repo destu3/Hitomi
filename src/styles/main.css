@@ -376,7 +376,6 @@ body::-webkit-scrollbar-thumb {
   justify-content: center;
   align-items: center;
   white-space: nowrap;
-  overflow: hidden;
 }
 /* end of anime details */
 
@@ -577,36 +576,22 @@ body::-webkit-scrollbar-thumb {
   margin: 15px 0;
 }
 
-#watch-trailer {
-  padding: 13px 10px;
-  cursor: pointer;
-  border: 0;
-  font-family: Montserrat, sans-serif;
-  color: var(--white-color);
-  font-weight: 500;
-  font-size: 0.85rem;
-  border-radius: 20px;
-  width: 150px;
-  margin-bottom: 20px;
-  transition: all 0.3s ease-in-out;
-  opacity: 0.95;
-}
-
-#watch-trailer:active {
-  outline: none;
-}
-
-.fa-circle-play {
-  margin-left: 5px;
-  position: relative;
-  top: 0.5px;
-}
-
-#anime-description {
+#anime-description,
+#start-date,
+#end-date,
+#episode-duration,
+#time-until-next-ep {
+  font-size: 0.9rem;
   color: var(--blue-text-color);
-  font-size: 0.95rem;
   font-weight: 500;
   margin-bottom: 15px;
+}
+
+#start-date,
+#end-date,
+#episode-duration,
+#time-until-next-ep {
+  margin-bottom: 0;
 }
 
 .button {
@@ -676,6 +661,7 @@ body::-webkit-scrollbar-thumb {
 #genre-tags {
   display: flex;
   gap: 5px;
+  overflow-y: auto;
 }
 
 #genres > p {
@@ -689,15 +675,6 @@ body::-webkit-scrollbar-thumb {
   opacity: 0.95;
   padding-top: 6px;
   padding-bottom: 6px;
-}
-
-#start-date,
-#end-date,
-#episode-duration,
-#time-until-next-ep {
-  font-size: 0.9rem;
-  font-weight: 500;
-  color: var(--blue-text-color);
 }
 
 /* end of anime info overlay */
@@ -837,10 +814,6 @@ input[type="search"]::-webkit-search-results-decoration {
     top: 10px;
   }
 
-  #anime-description {
-    font-size: 0.9rem;
-  }
-
   .main-info {
     position: relative;
     bottom: 100px;
@@ -862,21 +835,9 @@ input[type="search"]::-webkit-search-results-decoration {
   }
 }
 
-@media screen and (min-width: 320px) and (max-width: 980px) and (orientation: landscape) {
-  html {
-    transform: rotate(-90deg);
-    transform-origin: left top;
-    width: 100vh;
-    overflow-x: hidden;
-    position: absolute;
-    top: 100%;
-    left: 0;
-  }
-}
-
 @media screen and (min-width: 761px) and (max-width: 970px) {
   #poster-img {
-    width: 250px;
+    width: 280px;
     height: auto;
   }
 }
