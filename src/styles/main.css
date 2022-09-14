@@ -515,7 +515,7 @@ body::-webkit-scrollbar-thumb {
   background-size: cover;
   background-repeat: no-repeat;
   background-position: center;
-  height: 350px;
+  height: 400px;
   width: 100%;
   color: transparent;
   cursor: pointer;
@@ -523,15 +523,14 @@ body::-webkit-scrollbar-thumb {
   transition: var(--simple-short-transition);
 }
 
-#cover-image:after {
-  content: "";
+#banner-image-fade {
+  z-index: 99;
   position: absolute;
-  width: 100%;
-  height: 100%;
-  top: 0;
+  bottom: 0;
   left: 0;
-  background: rgba(0, 0, 0, 0.6);
-  opacity: 0.3;
+  width: 100%;
+  height: 50%;
+  background-image: url("http://127.0.0.1:5501/src/images/bottom-fade.png");
 }
 
 .anime-info {
@@ -546,20 +545,27 @@ body::-webkit-scrollbar-thumb {
 }
 
 #poster-img {
-  width: 385px;
+  width: 227px;
   height: auto;
-  max-height: 547px;
+  position: relative;
+  bottom: 150px;
   transition: var(--simple-short-transition);
+  z-index: 101;
 }
 
 .main-info {
   width: 100%;
-  height: 100%;
+  padding-bottom: 20px;
 }
 
 #anime-name {
   color: var(--brand-blue-color);
-  margin: 0 0 7px 0;
+  white-space: nowrap;
+}
+.main-info {
+  position: relative;
+  bottom: 120px;
+  z-index: 101;
 }
 
 #orig-title {
@@ -567,13 +573,15 @@ body::-webkit-scrollbar-thumb {
   font-size: 0.93rem;
   font-weight: 600;
   margin: 10px 0;
+  margin-top: 0;
 }
 
 #anime-details {
   font-size: 1rem;
   color: var(--brand-blue-color);
   font-weight: 600;
-  margin: 15px 0;
+  margin: 10px 0;
+  margin-top: 0;
 }
 
 #anime-description,
@@ -795,7 +803,7 @@ input[type="search"]::-webkit-search-results-decoration {
   }
 
   #poster-img {
-    width: 200px;
+    width: 120px;
     position: relative;
     bottom: 100px;
     height: auto;
@@ -814,11 +822,21 @@ input[type="search"]::-webkit-search-results-decoration {
     top: 10px;
   }
 
+  #anime-name {
+    font-size: 1.35rem;
+  }
+
   .main-info {
     position: relative;
     bottom: 100px;
     display: flex;
     flex-direction: column;
+    align-items: center;
+  }
+
+  #more-details {
+    align-self: flex-start;
+    width: 100%;
   }
 
   #genres {
@@ -835,10 +853,9 @@ input[type="search"]::-webkit-search-results-decoration {
   }
 }
 
-@media screen and (min-width: 761px) and (max-width: 970px) {
-  #poster-img {
-    width: 280px;
-    height: auto;
+@media screen and (orientation: landscape) {
+  #nav {
+    position: sticky;
   }
 }
 
